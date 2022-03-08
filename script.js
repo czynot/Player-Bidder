@@ -100,6 +100,7 @@ bidButton.addEventListener("click",()=>{
     const currIdx=parseInt(newBidderName.value);
     const bidder=teamNames[currIdx];
     //const bidder=newBidderName.value;
+    const currPoint=parseInt(teamPointArr[currIdx])+parseInt(val);
     
 
     if(val==''){
@@ -111,11 +112,13 @@ bidButton.addEventListener("click",()=>{
     else if(parseInt(val)<parseInt(bidValue.innerText)){
       alert("Current bid value less than previous bid!");
     }
-    else if(parseInt(teamPointsJson[currIdx].total)+parseInt(val) > maxPoint){
+    else if(currPoint > maxPoint){
+      console.log(teamPointArr[currIdx],val,currIdx);
       alert("Not enough point!")
     }
     else{
         bidderIndex=parseInt(newBidderName.value);
+        //console.log(bidderIndex);
         bidValue.innerHTML=val;
         bidderName.innerHTML=bidder;
         newBidValue.value="";
@@ -153,7 +156,8 @@ const data={
 }
 const addData=()=>{
     // adding sold player data to new sheet
-    fetch("https://sheet.best/api/sheets/4466ce3f-5b1b-4202-9eef-3d2c53f0b7cb", {
+    console.log("Data to add:", data);
+    fetch("https://sheet.best/api/sheets/fb70e40a-5f93-4c7d-8bb5-536bb7d3a364", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -164,8 +168,8 @@ const addData=()=>{
     .then((r) => r.json())
     .then((data) => {
     // The response comes here
-    console.log(data);
-      console.log("Added data to https://docs.google.com/spreadsheets/d/1TiyZuo8o12M2LU35P9ZzO2-LWx5C91PJ_LMdch_N8EA/edit#gid=1278357720" );
+    console.log("Added data",data);
+      console.log("Added data to https://docs.google.com/spreadsheets/d/1Gr6PnoMYJn0dQHQ0nPuLSg5xIsXL0qxgZx7sNKPDOIU/edit?usp=sharing" );
     })
     .catch((error) => {
     // Errors are reported there
@@ -180,7 +184,7 @@ const addData=()=>{
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          console.log("deleted data:",data);
           console.log("Deleted from https://docs.google.com/spreadsheets/d/1YbGjVNyBVm14jz-FsrWaziq7EuRvUoX8a8PFuGkaLJo/edit?usp=sharing");
         })
         .catch((error) => {
@@ -229,16 +233,19 @@ const handleSubmit = async (e) => {
     {
       data.Team="UNSOLD";
       data.Points="UNSOLD";
-      addData();
+
       deleteRow();
+      addData();
       console.log("Unsold");
     }
     else{
       data.Team=bidderName.innerText;
       data.Points=bidValue.innerText;
-      //addData();  uncomment it
-      //deleteRow(); uncomment it
-      const newPoints=parseInt(data.Points)+parseInt(teamPointArr[bidderIndex]);
+      addData(); 
+      deleteRow(); 
+      const newPoints=parseInt(data.Points)+parseInt(teamPointArr[bidderIndex]); 
+      console.log("newpoints:",newPoints ," arr[i]: ",teamPointArr[bidderIndex]); 
+      teamPointArr[bidderIndex]=parseInt(newPoints);
       updateTeamPointSheet(data.Team,newPoints);          //update points sheet
     }
 
