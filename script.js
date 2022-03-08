@@ -12,10 +12,9 @@ const newBidderName=document.getElementById("new-bidder-name");
 const resetBtn=document.getElementById("reset");
 const startBtn=document.getElementById("start");
 const submitBtn=document.getElementById("submit");
-const skillBat=document.getElementById("skill-bat");
-const skillBowl=document.getElementById("skill-bowl");
-const skillAllround=document.getElementById("skill-allround");
+const skillSpeciality=document.getElementById("speciality");
 const skillWk=document.getElementById("skill-wk");
+const playerImage = document.getElementById("player-image");
 
 
 //fetching data from sheet1
@@ -24,7 +23,8 @@ let sNo;
 const getData = async () => {
     try {
       const res = await fetch(
-        "https://sheet.best/api/sheets/0f7a6adf-3eab-4c4f-bf25-9fd9d7adabd0"  //sheet link (from sheet.best)
+        //"https://sheet.best/api/sheets/0f7a6adf-3eab-4c4f-bf25-9fd9d7adabd0"  //sheet link (from sheet.best)
+        "https://sheet.best/api/sheets/49f53ffd-474d-4f7b-9538-06519c0175f2"
       );
       playerJsonData = await res.json();
       console.log(playerJsonData); // player data
@@ -48,7 +48,9 @@ function randomPlayer(){
     sNo=Math.floor(Math.random() * playerJsonData.length); //generating random number between 0 to length of data
     currentPlayerName=playerJsonData[sNo].Name;
     currentPlayerDept=playerJsonData[sNo].Dept;
-    currentPlayerYear=playerJsonData[sNo].Year
+    currentPlayerYear=playerJsonData[sNo].Year;
+
+    playerImage.src="https://drive.google.com/uc?id="+playerJsonData[sNo].Photo;
     //changing player name
     playerName1.innerHTML=`${currentPlayerName}`;
 
@@ -60,24 +62,12 @@ function randomPlayer(){
 
     year.innerHTML=`${currentPlayerYear}`;
 
-    if(playerJsonData[sNo].Allrounder==="yes"){
-        skillAllround.style.display="block";
-        skillBat.style.display="none";
-        skillBowl.style.display="none";
-    }
-    else if(playerJsonData[sNo].Batsman=="yes"){
-      skillAllround.style.display="none";
-      skillBat.style.display="block";
-      skillBowl.style.display="none";
-    }
-    else if(playerJsonData[sNo].Bowler=="yes"){
-      skillAllround.style.display="none";
-      skillBat.style.display="none";
-      skillBowl.style.display="block";
-    }
+    skillSpeciality.innerText=playerJsonData[sNo].Speciality;
 
-    skillWk.style.display="none";
-    if(playerJsonData[sNo].WK=="yes"){
+    if(playerJsonData[sNo].WK=="no"){
+      skillWk.style.display="none";
+    }
+    else{
       skillWk.style.display="block";
     }
 
@@ -206,7 +196,7 @@ const data={
 }
 const addData=()=>{
     // adding sold player data to new sheet
-    fetch("https://sheet.best/api/sheets/251bc5ce-5b1d-4ff6-906a-4d6fd4f23233", {
+    fetch("https://sheet.best/api/sheets/4466ce3f-5b1b-4202-9eef-3d2c53f0b7cb", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -218,7 +208,7 @@ const addData=()=>{
     .then((data) => {
     // The response comes here
     console.log(data);
-      console.log("Added data to https://sheet.best/api/sheets/251bc5ce-5b1d-4ff6-906a-4d6fd4f23233" );
+      console.log("Added data to https://sheet.best/api/sheets/4466ce3f-5b1b-4202-9eef-3d2c53f0b7cb" );
     })
     .catch((error) => {
     // Errors are reported there
@@ -228,7 +218,7 @@ const addData=()=>{
 
   //Function to delete row from sheet
   const deleteRow=()=>{
-    fetch(`https://sheet.best/api/sheets/0f7a6adf-3eab-4c4f-bf25-9fd9d7adabd0/${sNo}`, {  //change last didgit to manipulate the row you want to delete
+    fetch(`https://sheet.best/api/sheets/49f53ffd-474d-4f7b-9538-06519c0175f2/${sNo}`, {  //change last didgit to manipulate the row you want to delete
         method: "DELETE",
       })
         .then((response) => response.json())
@@ -288,7 +278,6 @@ const handleSubmit = async (e) => {
       addData();
       deleteRow();
     }
-    
   }
 
 

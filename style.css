@@ -57,3 +57,8 @@ hr{
 .currentBidHeader{
   font-family:"Snell Roundhand, cursive";
 }
+
+.center-cropped {
+  background-position: center center;
+  background-repeat: no-repeat;
+}
