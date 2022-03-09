@@ -31,7 +31,9 @@ let sNo;
 const getData = async () => {   // input sheet: https://docs.google.com/spreadsheets/d/1YbGjVNyBVm14jz-FsrWaziq7EuRvUoX8a8PFuGkaLJo/edit?usp=sharing
     try { 
       const res = await fetch( //sheet link (from sheet.best)
-        "https://sheet.best/api/sheets/4af5b600-38ab-40df-8f16-0e1a652b3f86"
+        // "https://sheet.best/api/sheets/4af5b600-38ab-40df-8f16-0e1a652b3f86"
+        "https://sheet.best/api/sheets/79228fa1-c8d2-4594-bc72-041d05b4efca"
+
       );
       playerJsonData = await res.json();
       console.log(playerJsonData); // player data
@@ -179,7 +181,7 @@ const addData=()=>{
 
   //Function to delete row from sheet
   const deleteRow=()=>{  //input sheet: https://docs.google.com/spreadsheets/d/1YbGjVNyBVm14jz-FsrWaziq7EuRvUoX8a8PFuGkaLJo/edit?usp=sharing
-    fetch(`https://sheet.best/api/sheets/4af5b600-38ab-40df-8f16-0e1a652b3f86/${sNo}`, {  //change last didgit to manipulate the row you want to delete
+    fetch(`https://sheet.best/api/sheets/79228fa1-c8d2-4594-bc72-041d05b4efca/${sNo}`, {  //change last didgit to manipulate the row you want to delete
         method: "DELETE",
       })
         .then((response) => response.json())
@@ -290,7 +292,8 @@ let teamPointArr=[];
 const getCurrentPoints = async () => {
     try {
       const res = await fetch( //sheet link (from sheet.best)   // team point sheet: https://sheet.best/api/sheets/1d7eb585-89cf-4925-b18a-2681b62e70d1
-        "https://sheet.best/api/sheets/1d7eb585-89cf-4925-b18a-2681b62e70d1"
+        // "https://sheet.best/api/sheets/1d7eb585-89cf-4925-b18a-2681b62e70d1"
+        "https://sheet.best/api/sheets/c8d1e4d1-f894-4793-ba34-643ab9ac5750"
       );
       teamPointsJson = await res.json();
       console.log(teamPointsJson); // player data
@@ -314,7 +317,7 @@ const getCurrentPoints = async () => {
 
   const updateTeamPointSheet=(teamName,newPoint)=>{
     fetch(
-      `https://sheet.best/api/sheets/1d7eb585-89cf-4925-b18a-2681b62e70d1/team/*${teamName}*`,
+      `https://sheet.best/api/sheets/c8d1e4d1-f894-4793-ba34-643ab9ac5750/team/*${teamName}*`,
       {
         method: "PATCH",
         mode: "cors",
