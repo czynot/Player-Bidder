@@ -1,222 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>MCL Bidding Page</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <head>
+        <title>MCL Bidder Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+        <link rel="stylesheet" href="login.css">
+    </head>
+<body>
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-<!-- Google Fonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-<!-- Bootstrap core CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
-
-<style>
-html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
-</style>
-</head>
-<body class="w3-light-grey">
-
-    <!--Navbar -->
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color" id="nav">
-    <a class="navbar-brand" href="#">MCL</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
-      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" id="start">Start Bidding
-            <!-- <span class="sr-only">(current)</span>  -->
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">Sheets
-          </a>
-          <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-            <a class="dropdown-item" href="https://docs.google.com/spreadsheets/d/1YbGjVNyBVm14jz-FsrWaziq7EuRvUoX8a8PFuGkaLJo/edit#gid=0" target="_blank">Input Sheet</a>
-            <a class="dropdown-item" href="https://docs.google.com/spreadsheets/d/1Gr6PnoMYJn0dQHQ0nPuLSg5xIsXL0qxgZx7sNKPDOIU/edit?usp=sharing" target="_blank">Output Sheet</a>
-            <a class="dropdown-item" href="https://docs.google.com/spreadsheets/d/1im8fhoFTRF4te0m2jAiOxzYLfzLRhnDgbBwoFLERD9U/edit#gid=0" target="_blank">Points Sheet</a>
-          </div>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light">
-            <i class="fab fa-google-plus-g"></i>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-default"
-            aria-labelledby="navbarDropdownMenuLink-333">
-            <a class="dropdown-item" href="https://www.instagram.com/white_pegasus_/?hl=en">Creator</a>
-            <a class="dropdown-item" href="https://www.instagram.com/mcl_msit/">Contact Us</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <!--/.Navbar -->
-
-
-<!-- Page Container -->
-<div class="w3-content w3-margin-top" style="max-width:1400px; ">
-
-  <!-- The Grid -->
-  <div class="w3-row-padding" id="parent-div" style="margin-top: 60px;">
-
-    <div id="sold-div" style="display: none; padding: 100px;" >
-     <h2 id="sold-detail"><span id="sold-player-name">Player Name</span> sold to <span id="sold-player-team">teamname</span> by <span id="sold player bid">bid</span> points</h2> 
-      <button id="goto-next-bid">Go to Next Bid</button>
-    </div>
-  
-    <!-- Left Column -->
-    <div class="w3-third" id="left-column">
-    
-      <div class="w3-white w3-text-grey w3-card-4">
-        <div class="w3-display-container">
-          <img class="center-cropped" src="default-image.png" 
-          style="width:100%; height: 400px;" alt="Avatar" id="player-image" onerror="this.src=image-not-found.jpg">
-          <div class="w3-display-bottomleft w3-container w3-text-black">
-            <h2 style="color: aliceblue;" id="player-name1">Player Name</h2>
-          </div>
-        </div>
-        <div class="w3-container mt-3">
-          <h5><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><b>Department: </b><span id="dept">XYZ</span></h5>
-          <h5><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>
-            <b>Year: </b><span id="year">000</span></h5>
-          <hr>
-
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
-
-          <div id="skill-div">
-            <p class="skills w3-teal" id="speciality">Speciality</p>
-          </div>
-
-          <div id="skill-wk">
-            <p class="mt-3 skills w3-teal">Wicket Keeper</p>
-            <!--<div class="w3-light-grey w3-round-xlarge w3-small">
-               <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%; height: 15px;">
-                <div class="w3-center w3-text-white"></div>
-              </div> 
-            </div>-->
-          </div>
-          
-          <br>
-        </div>
-      </div><br>
-
-    <!-- End Left Column -->
-    </div>
-
-    <!-- Right Column -->
-    <div class="w3-twothird" id="right-column">
-    
-      <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <b>
-          <h2 class="w3-text-grey w3-padding-16 " id="player-name2">
-          <i class="fa fa-user fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
-          Player Name</h2>
-        </b>
-
-            <hr>
-
-        <div class="w3-container">
-          <h4 class="w3-opacity currentBidHeader"><b>Current Bid</b></h4>
-          <h1 class="w3-text-teal bid-display"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
-            <span class="w3-tag w3-teal w3-round " id="bid-value">0000</span></h1> 
-          <hr>
-        </div>
-        
-        <div class="w3-container">
-          <h4 class="w3-opacity currentBidHeader"><b>Bidding Team</b></h4>
-          <h1 class="w3-text-teal bid-display"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
-            <b><span id="bidder-name">Unsold</span></b></h1>
-            <hr>
-        </div>
-
-        <div class="newbid-container">
-            <div class="newbid-div">
-                <input
-                class="new-bid mr-3"
-                id="new-bid-value"
-                  type="number"
-                  placeholder="Bid Amount"
-                  aria-label="New Bid"
-                  style="width: 20%"
-                />
-
-                    <select name="languages" id="new-bidder-name" style="padding: 8px;">
-                      <option value="select">Select Bidder Name</option>
-                      <option value="0">RR</option>
-                      <option value="1">CSK</option>
-                      <option value="2">KKR</option>
-                      <option value="3">DC</option>
-                      <option value="4">RCB</option>
-                      <option value="5">SRH</option>
-                    </select>
-                <button id="bid-button" class="btn btn-outline-primary ml-5" type="button" data-mdb-ripple-color="dark" style="padding: 10px; padding-left: 20px; padding-right: 20px;">
-                  Update
-                </button>
-              </div>
-        </div>
-
-        <div class="reset-container">
-            <img src="reset.png" alt="Avatar" id="reset" height ="40" width="40" style="cursor: pointer;" contextmenu="Reset">
+    <div class="login">
+        <div class="form">
+          <form class="login-form">
+            <span class="material-icons">lock</span>
+            <input id="username" type="text" placeholder="username" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+            <input id="password" type="password" placeholder="password" required />
+            <button type="button" id="login-btn">login</button>
+            <button type="button" id="go-btn" style="margin-top: 10px; display: none; "> 
+                <a href="home.html" style="color: antiquewhite;">Go</a>
+            </button>
+          </form> 
         </div>
       </div>
 
-      <div class="w3-twothird">
-        <button id="submit" type="button" class="btn btn-primary btn-rounded">Submit</button>
-      </div>
+      
+      
 
-    <!-- End Right Column -->
-    </div>
-    
-  <!-- End Grid -->
-  </div>
-  
-  <!-- End Page Container -->
-</div>
-
-
-
-<footer class="w3-container w3-teal w3-center w3-margin-top" id="footer">
-  <p>MEGHNAD SAHA CRICKET LEAGUE</p>
-  <i class="fa fa-facebook-official w3-hover-opacity"></i>
-  <i class="fa fa-instagram w3-hover-opacity"></i>
-  <i class="fa fa-snapchat w3-hover-opacity"></i>
-  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-  <i class="fa fa-twitter w3-hover-opacity"></i>
-  <i class="fa fa-linkedin w3-hover-opacity"></i>
-  <p>Powered by <a href="https://www.instagram.com/mcl_msit/" target="_blank" id="footer-link">MCL</a></p>
-</footer>
-<script src="script.js"></script>
-<!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-
+      <script src="login.js"></script>
 </body>
 </html>
